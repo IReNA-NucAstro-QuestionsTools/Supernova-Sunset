@@ -114,7 +114,7 @@ T9_analytic  = 2.4*(0.2)**(-3/4)*exp(-x/ (3*(446/sqrt(7*1e6))))
 rho_analytic = 7*1e6 *exp(-x / (446/sqrt(7*1e6)))
 #Ye_analytic  = 0.498
 #Ye_analytic  = 0.998
-Ye_analytic  = 0.8
+Ye_analytic  = 0.6
 ###################################
 # Nuclear statistical equilibrium #
 ###################################
@@ -123,8 +123,8 @@ Ye_analytic  = 0.8
 nse_descend_t9start= 100.0
 
 # Temperature at which calculation should start [GK] (initemp)
-initemp_hot  = 7.0 #2.0e1
-initemp_cold = 7.0 #2.0e1
+initemp_hot  = 6.0 #2.0e1
+initemp_cold = 6.0 #2.0e1
 
 # Temperature above which nse should be used [GK]
 nsetemp_hot  = 5.8
