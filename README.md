@@ -1,4 +1,4 @@
-# Supernova-Sunset
+# Supernova-Sunburn
 WinNet Team for IReNA Hackathon 2025
 
 Authors Brendon, Sean, Ryan
