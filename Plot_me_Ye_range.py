@@ -55,7 +55,7 @@ if __name__ == "__main__":
     print(f" Ye: 0.80")
     print(f"First Ye: {first_ye80:.4f}")
     print(f"Last Ye:  {last_ye80:.4f}")
-
+CCSN_winds_Ye_65_F3
 if __name__ == "__main__":
     filepath = "../CCSN_winds_Ye_7_F3/mainout.dat"
     first_ye7, last_ye7 = extract_first_last_ye(filepath)
@@ -142,8 +142,8 @@ if __name__ == "__main__":
 
 fig, ax = plt.subplots(7,1,figsize=(5,5),sharex=True)
 plt.subplots_adjust(hspace=0)
-time,temp,rho,Ye,Yn,Yp,Yhvy,ent = np.loadtxt("mainout.dat",unpack=True,usecols=[1,2,3,4,6,8,10,13])
-
+time,temp,rho,Ye,Yn,Yp,Yhvy,ent = np.loadtxt("../CCSN_winds_Ye_41_OG/mainout.dat",unpack=True,usecols=[1,2,3,4,6,8,10,13])
+#time,temp,rho,Ye,Yn,Yp,Yhvy,ent = np.loadtxt("mainout.dat",unpack=True,usecols=[1,2,3,4,6,8,10,13])
 # WinNet density and temperature
 ax[0].plot(time-time[0],rho/1e6,color="tab:blue",lw=4,alpha=0.7,label="Density")
 ax[1].plot(time-time[0],temp,color="tab:red",lw=4,alpha=0.7,label="temp")
@@ -161,22 +161,35 @@ T9_analytic  = lambda x: 2.4*(R0)**(-3./4.)*np.exp(-x/ (3*(446/np.sqrt(7*rho_0))
 rho_analytic = lambda x: 7*rho_0 *np.exp(-x / (446/np.sqrt(7*rho_0)))
 T9_gridpoint  = T9_analytic(time)
 rho_gridpoint = rho_analytic(time)
-ax[0].plot(time-time[0],rho_gridpoint/1e6,ls="--",color="k",label="Analytic")
-ax[1].plot(time-time[0],T9_gridpoint,ls="--",color="k")
+#ax[0].plot(time-time[0],rho_gridpoint/1e6,ls="--",color="k",label="Analytic")
+#ax[1].plot(time-time[0],T9_gridpoint,ls="--",color="k",label="Analytic")
 
 
 
 ax[0].set_ylabel(r"$\rho$ [10$^6$ g cm$^{-3}$]")
 ax[1].set_ylabel("T[GK]")
 ax[2].set_xlabel("Time [s]")
-ax[3].set_xlim(0,3)
-ax[1].legend()
-ax[2].legend()
-ax[3].legend()
-ax[4].legend()
-ax[5].legend()
-ax[6].legend()
+ax[6].set_xscale('log')
+ax[3].set_xlim(.00001,3)
+ax[0].legend( fontsize=14, loc='upper right')
+ax[1].legend( fontsize=14, loc='upper right')
+ax[2].legend( fontsize=14, loc='upper right')
+ax[3].legend( fontsize=14, loc='upper right')
+ax[4].legend(fontsize=14, loc='upper right')
+ax[5].legend( fontsize=14, loc='upper right')
+ax[6].legend( fontsize=14, loc='upper right')
 
+ax[0].set_title("Preset Enviroment Information", fontsize=20)
+ax[3].set_xlabel("Various Parameters", fontsize=16)
+ax[6].set_ylabel("Time", fontsize=16)
+
+
+ax[3].tick_params(axis='both', which='major', labelsize=14)
+ax[6].tick_params(axis='both', which='minor', labelsize=10)
+#ax.tick_params(axis='x', rotation=45) # rotate x-axis ticks if needed
+
+# Customize tick direction, length, width, and color
+ax[6].tick_params(axis='both', direction='in', length=6, width=2, colors='black')
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-
 #This is the Abundance plot of all the simulations ran
@@ -220,10 +233,25 @@ ax2.plot(AE,XE,color="grey",lw=4,alpha=0.7,label="Ye = .41")
 ax2.set_xlim(0,300)
 ax2.set_ylim(1e-8,1)
 ax2.set_yscale("log")
-ax2.set_title("Final mass fractions")
+ax2.set_title("Final Mass Fractions")
 ax2.set_ylabel("Mass fraction X")
 ax2.set_xlabel("Mass number A")
-ax2.legend()
+ax2.legend( fontsize=14, loc='upper right')
+
+
+
+ax2.set_title("Abundances for All Simulations ", fontsize=20)
+ax2.set_xlabel(" Mass Fraction X(A)", fontsize=16)
+ax2.set_ylabel("A", fontsize=16)
+
+
+ax2.tick_params(axis='both', which='major', labelsize=14)
+ax2.tick_params(axis='both', which='minor', labelsize=10)
+#ax2.tick_params(axis='x', rotation=45) # rotate x-axis ticks if needed
+
+# Customize tick direction, length, width, and color
+ax2.tick_params(axis='both', direction='in', length=6, width=2, colors='black')
+
 
 
 fig2.savefig("final_massfractions.pdf",bbox_inches="tight")
@@ -247,28 +275,41 @@ T10,Y10  = np.loadtxt("../Working_CCSN_wind_bliss_0.30/mainout.dat",unpack=True,
 T11,Y11  = np.loadtxt("../Working_CCSN_wind_bliss_0.20/mainout.dat",unpack=True,usecols=[1,4])
 TE,YE  = np.loadtxt("../CCSN_winds_Ye_41_OG/mainout.dat",unpack=True,usecols=[1,4])
 
-ax3.plot(T,Y,color="black",lw=4,alpha=0.7,label="Ye = .9_F4")
-ax3.plot(T1,Y1,color="blue",lw=4,alpha=0.7,label="Ye = .9_F3")
-ax3.plot(T2,Y2,color="red",lw=4,alpha=0.7,label="Ye = .8")
-ax3.plot(T3,Y3,color="seagreen",lw=4,alpha=0.7,label="Ye = .7")
-ax3.plot(T4,Y4,color="cyan",lw=4,alpha=0.7,label="Ye = .65")
-ax3.plot(T5,Y5,color="orange",lw=4,alpha=0.7,label="Ye = .6")
-ax3.plot(T6,Y6,color="gold",lw=4,alpha=0.7,label="Ye = .55")
-ax3.plot(T7,Y7,color="turquoise",lw=4,alpha=0.7,label="Ye = .5")
-ax3.plot(T8,Y8,color="green",lw=4,alpha=0.7,label="Ye = .45")
-ax3.plot(T9,Y9,color="tan",lw=4,alpha=0.7,label="Ye = .4")
-ax3.plot(T10,Y10,color="brown",lw=4,alpha=0.7,label="Ye = .3")
-ax3.plot(T11,Y11,color="pink",lw=4,alpha=0.7,label="Ye = 0.2")
-ax3.plot(TE,YE,color="grey",lw=4,alpha=0.7,label="Ye = .41")
+ax3.plot(T-T[0],Y,color="black",lw=4,alpha=0.7,label="Ye = .9_F4")
+ax3.plot(T1-T1[0],Y1,color="blue",lw=4,alpha=0.7,label="Ye = .9_F3")
+ax3.plot(T2-T2[0],Y2,color="red",lw=4,alpha=0.7,label="Ye = .8")
+ax3.plot(T3-T3[0],Y3,color="seagreen",lw=4,alpha=0.7,label="Ye = .7")
+ax3.plot(T4-T4[0],Y4,color="cyan",lw=4,alpha=0.7,label="Ye = .65")
+ax3.plot(T5-T5[0],Y5,color="orange",lw=4,alpha=0.7,label="Ye = .6")
+ax3.plot(T6-T6[0],Y6,color="gold",lw=4,alpha=0.7,label="Ye = .55")
+ax3.plot(T7-T7[0],Y7,color="turquoise",lw=4,alpha=0.7,label="Ye = .5")
+ax3.plot(T8-T8[0],Y8,color="green",lw=4,alpha=0.7,label="Ye = .45")
+ax3.plot(T9-T9[0],Y9,color="tan",lw=4,alpha=0.7,label="Ye = .4")
+ax3.plot(T10-T10[0],Y10,color="brown",lw=4,alpha=0.7,label="Ye = .3")
+ax3.plot(T11-T11[0],Y11,color="pink",lw=4,alpha=0.7,label="Ye = 0.2")
+ax3.plot(TE-TE[0],YE,color="grey",lw=4,alpha=0.7,label="Ye = .41")
 
-ax3.set_xlim(0.01,0.5)
-#ax3.set_yscale('log')
+#ax3.set_xlim(0.09,1)
+ax3.set_xscale('log')
 #ax3.set_ylim(1e-8,1)
 #ax3.set_yscale("log")
-ax3.set_title("Change in Ye")
-ax3.set_ylabel("Ye")
-ax3.set_xlabel("Time")
-ax3.legend()
+#ax3.set_title("Change in Ye")
+#ax3.set_ylabel("Ye")
+#ax3.set_xlabel("Time")
+ax3.legend( fontsize=14, loc='upper left')
+
+ax3.set_title(" Ye for Every Simulation", fontsize=20)
+ax3.set_xlabel("Ye  ", fontsize=16)
+ax3.set_ylabel("Time", fontsize=16)
+
+
+ax3.tick_params(axis='both', which='major', labelsize=14)
+ax3.tick_params(axis='both', which='minor', labelsize=10)
+#ax2.tick_params(axis='x', rotation=45) # rotate x-axis ticks if needed
+
+# Customize tick direction, length, width, and color
+ax3.tick_params(axis='both', direction='in', length=6, width=2, colors='black')
+
 
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -309,26 +350,35 @@ YcEr=YcE+0.09
 
 ax4.plot(Tc,Ycr,color="black",lw=4,alpha=0.7,label="Ye = .9_F4")
 ax4.plot(Tc1,Yc1r,color="blue",lw=4,alpha=0.7,label="Ye = .9_F3")
-ax4.plot(Tc2,Yc2r,color="red",lw=4,alpha=0.7,label="Ye = .8_F3")
-ax4.plot(Tc3,Yc3r,color="seagreen",lw=4,alpha=0.7,label="Ye = .7_F3")
-ax4.plot(Tc4,Yc4r,color="cyan",lw=4,alpha=0.7,label="Ye = .65_F3")
-ax4.plot(Tc5,Yc5r,color="orange",lw=4,alpha=0.7,label="Ye = .6_F3")
-ax4.plot(Tc6,Yc6r,color="gold",lw=4,alpha=0.7,label="Ye = .55_F3")
-ax4.plot(Tc7,Yc7r,color="turquoise",lw=4,alpha=0.7,label="Ye = .5_F3")
-ax4.plot(Tc8,Yc8r,color="green",lw=4,alpha=0.7,label="Ye = .45_F3")
-ax4.plot(Tc9,Yc9r,color="tan",lw=4,alpha=0.7,label="Ye = .4_F3")
-ax4.plot(Tc10,Yc10r,color="brown",lw=4,alpha=0.7,label="Ye = .3_F3")
-ax4.plot(Tc11,Yc11r,color="pink",lw=4,alpha=0.7,label="Ye = .2_F3")
-ax4.plot(TcE,YcEr,color="grey",lw=4,alpha=0.7,label="Ye = .41_F3")
+ax4.plot(Tc2,Yc2r,color="red",lw=4,alpha=0.7,label="Ye = .8")
+ax4.plot(Tc3,Yc3r,color="seagreen",lw=4,alpha=0.7,label="Ye = .7")
+ax4.plot(Tc4,Yc4r,color="cyan",lw=4,alpha=0.7,label="Ye = .65")
+ax4.plot(Tc5,Yc5r,color="orange",lw=4,alpha=0.7,label="Ye = .6")
+ax4.plot(Tc6,Yc6r,color="gold",lw=4,alpha=0.7,label="Ye = .55")
+ax4.plot(Tc7,Yc7r,color="turquoise",lw=4,alpha=0.7,label="Ye = .5")
+ax4.plot(Tc8,Yc8r,color="green",lw=4,alpha=0.7,label="Ye = .45")
+ax4.plot(Tc9,Yc9r,color="tan",lw=4,alpha=0.7,label="Ye = .4")
+ax4.plot(Tc10,Yc10r,color="brown",lw=4,alpha=0.7,label="Ye = .3")
+ax4.plot(Tc11,Yc11r,color="pink",lw=4,alpha=0.7,label="Ye = .2")
+ax4.plot(TcE,YcEr,color="grey",lw=4,alpha=0.7,label="Ye = .41")
 #ax4.plot(TcE,YcE,color="black",lw=4,alpha=0.7,label="Ye = .9_F4")
-ax4.set_xlim(0.01,0.5)
-#ax3.set_yscale('log')i
+ax4.set_xlim(0.01,1)
+ax4.set_xscale('log')
 #ax4.set_ylim(1e-8,1)
 #ax4.set_yscale("log")
-ax4.set_title("Overlay of Ye changes")
-ax4.set_ylabel("Ye trajectory but started to 0.5")
-ax4.set_xlabel("Time")
-ax4.legend()
+ax4.set_title("Overlay of Ye Changes", fontsize=20)
+ax4.set_ylabel("Ye trajectory shifted to 0.5", fontsize=16)
+ax4.set_xlabel("Time", fontsize=16)
+ax4.legend(fontsize=14, loc='upper left')
+
+
+ax4.tick_params(axis='both', which='major', labelsize=14)
+ax4.tick_params(axis='both', which='minor', labelsize=10)
+#ax2.tick_params(axis='x', rotation=45) # rotate x-axis ticks if needed
+
+# Customize tick direction, length, width, and color
+ax4.tick_params(axis='both', direction='in', length=6, width=2, colors='black')
+
 
 
 
@@ -356,10 +406,23 @@ ax5.plot(AE,XE,color="grey",lw=4,alpha=0.7,label="Ye = .41")
 ax5.set_xlim(0,150)
 ax5.set_ylim(1e-8,1)
 ax5.set_yscale("log")
-ax5.set_title("Final mass fractions")
-ax5.set_ylabel("Mass fraction X")
-ax5.set_xlabel("Mass number A")
-ax5.legend()
+#ax5.set_title("Final mass fractions")
+#ax5.set_ylabel("Mass fraction X")
+#ax5.set_xlabel("Mass number A")
+ax5.legend(fontsize=14, loc='upper right')
+
+
+ax5.set_title("A Abundance Sums for Revelant Ye Values", fontsize=20)
+ax5.set_xlabel("Ye", fontsize=16)
+ax5.set_ylabel("Mass Fraction X(A)", fontsize=16)
+
+
+ax5.tick_params(axis='both', which='major', labelsize=14)
+ax5.tick_params(axis='both', which='minor', labelsize=10)
+#ax2.tick_params(axis='x', rotation=45) # rotate x-axis ticks if needed
+
+# Customize tick direction, length, width, and color
+ax5.tick_params(axis='both', direction='in', length=6, width=2, colors='black')
 
 
 plt.show()
