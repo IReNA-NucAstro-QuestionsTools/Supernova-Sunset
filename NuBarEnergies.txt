@@ -1,0 +1,45 @@
+Constant Luminosity at 3.11e51
+0.2
+8.9811561
+Constant Luminosity
+0.25
+11.974874799999998
+Constant Luminosity
+0.3
+15.396267599999998
+Constant Luminosity
+0.35
+19.344028523076922
+Constant Luminosity
+0.4
+23.949749599999997
+Constant Luminosity
+0.45
+29.39287450909091
+Constant Luminosity
+0.5
+35.9246244
+Constant Luminosity
+0.55
+43.90787426666667
+Constant Luminosity
+0.6
+53.886936599999984
+Constant Luminosity
+0.65
+66.71715960000002
+Constant Luminosity
+0.7
+83.82412359999998
+Constant Luminosity
+0.75
+107.77387320000001
+Constant Luminosity
+0.8
+143.6984976
+Constant Luminosity
+0.85
+203.57287159999996
+Constant Luminosity
+0.9
+323.32161959999985
